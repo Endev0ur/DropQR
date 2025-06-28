@@ -2,20 +2,20 @@ const express = require('express');
 const app = express();
 const dotenv = require('dotenv');
 dotenv.config();
+const cors = require("cors");
 
-const multer = require('multer');
+
 
 const uploadRouter = require("./Router/uploadRouter");
 
 const PORT = process.env.PORT || 3000;
 
-/* Creating a in-memory-storage engine */
-const storage = multer.memoryStorage();
+app.use(cors({
+  origin: `${process.env.VITE_FRONTEND_URL}`,
+  credentials: true
+}));
 
-/* Initialize the multer */
-const upload = multer({storage:storage});
-
-app.use("/upload" , upload.single('file') , uploadRouter)
+app.use("/upload" , uploadRouter)
 
 app.get("/" , (req , res)=>{
   res.send("Server is Running");

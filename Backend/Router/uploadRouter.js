@@ -2,10 +2,18 @@ const express = require('express');
 const router = express.Router();
 const { v4: uuidv4 } = require('uuid');
 const QRCode = require('qrcode'); 
+const multer = require('multer');
 
 const fileStore = {};
 
-router.post("/generate" , async (req , res)=>{
+/* Creating a in-memory-storage engine */
+const storage = multer.memoryStorage();
+
+/* Initialize the multer */
+const upload = multer({storage:storage});
+
+
+router.post("/generate" , upload.single('file') , async (req , res)=>{
 
   if(!req.file){
     res.status(401).json({
