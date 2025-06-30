@@ -12,6 +12,8 @@ function App() {
       <Hero />
       <FeatureList></FeatureList>
       <Uploader></Uploader>
+      
+      
     </>
   )
 }
