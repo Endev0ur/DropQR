@@ -82,7 +82,7 @@ router.get('/download/:id', (req, res) => {
 
 /* POST /upload/download/:id (form submission with password) */
 
-router.post('/download/:id', express.urlencoded({ extended: true }), (req, res) => {
+router.post('/download/:id', (req, res) => {
   const file = fileStore[req.params.id];
   if (!file) return res.status(404).send("❌ File not found or already downloaded.");
 
