@@ -3,7 +3,7 @@ import { Upload } from 'lucide-react'
 import axios from 'axios';
 import Footer from './Footer'
 
-const Uploader = () => {
+const Uploader = ({mode , setMode}) => {
 
   const [file , setFile] = useState(null);
   const [isThere , setIsThere] = useState(false);
@@ -67,8 +67,8 @@ const Uploader = () => {
     <div className='h-[300px] bg-white'>
       {!isQR ? (
         <> 
-        <div className="w-full mt-10 flex justify-center items-center flex-col">
-          <div className="w-[500px] h-[250px] border-2 border-dashed border-gray-400 rounded-xl flex flex-col justify-center items-center text-center px-6">
+        <div className={`w-full pt-10 flex justify-center items-center flex-col ${mode?"bg-gray-800":"bg-white"} transition-colors duration-600 pb-10`}>
+          <div className="w-full max-w-[500px] h-[200px] sm:h-[250px] border-2 border-dashed border-gray-400 rounded-xl flex flex-col justify-center items-center text-center px-4 sm:px-6 mx-auto">
             
             {/* Upload Icon */}
             <div className="w-14 h-14 flex items-center justify-center rounded-full bg-gray-100 mb-4">
@@ -76,10 +76,10 @@ const Uploader = () => {
             </div>
 
             {/* Title */}
-            <h3 className="font-semibold text-lg mb-1">Upload a file</h3>
+            <h3 className={`font-semibold text-lg mb-1 ${mode?"text-sky-500" : "text-black"}`}>Upload a file</h3>
 
             {/* Subtext */}
-            <p className="text-sm text-gray-500 mb-3">
+            <p className={`text-sm ${mode?"text-white" : "text-gray-500"} mb-3`}>
               Drag and drop a file here, or click to browse
             </p>
 
@@ -90,12 +90,12 @@ const Uploader = () => {
             </label>
 
             {/* Max file size info */}
-            {isThere && <p className="text-sm font-bold text-black mt-2">{file.name}</p>}
+            {isThere && <p className={`text-sm font-bold ${mode?"text-gray-200" : "text-black"} mt-2`}>{file.name}</p>}
           </div>
 
           <div className='mt-5'>
             <div className='flex justify-center items-center'>
-              <p className='font-bold text-gray-600'>Encrpt with Password : </p>
+              <p className={`font-bold ${mode?"text-white" : "text-gray-600"}`}>Encrpt with Password : </p>
               <div className={`ml-3 h-7 w-17 border flex items-center cursor-pointer rounded-2xl shadow-md shadow-black transform transition-transform duration-400 ease-in-out ${withPassword ? "bg-white" : "bg-black"}`} onClick={handleWithPassword}>
                 <div  className={`h-6 w-8 border text-xs flex justify-center items-center rounded-full shadow-md transform transition-transform duration-300 ease-in-out
                    ${withPassword ? 'translate-x-8 bg-black' : 'translate-x-0.5 bg-white'}`}>
@@ -115,7 +115,7 @@ const Uploader = () => {
           </div>
 
       </div>
-      {isThere && <div className=' flex text-center item-center justify-center'>
+      {isThere && <div className={`flex text-center item-center justify-center ${mode?"bg-gray-800":"bg-white"} pb-10 transition-colors duration-600`}>
         <button className='pt-2 pb-2 pl-10 pr-10 rounded-md bg-lime-500 font-bold text-white cursor-pointer mt-5' onClick={handleGenerateQR}>Generate</button>  
       </div>}
       </>) : (
@@ -127,9 +127,9 @@ const Uploader = () => {
         </>
       )}
 
-      <hr className='mt-5 text-gray-500' />
+      <hr className={`${mode?"text-white":"text-gray-700"} transition-colors duration-600`} />
 
-      <Footer></Footer>
+      <Footer mode={mode}></Footer>
       
     </div>
   )
